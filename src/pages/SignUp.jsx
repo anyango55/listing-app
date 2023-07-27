@@ -102,3 +102,4 @@ export default function SignUp() {
 // TIMESTAMP - 2:09
 // add icon - react icons
 // npm i react-icons search icon- eye - npm 
+// Forgot page not rendering
