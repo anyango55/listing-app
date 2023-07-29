@@ -4,7 +4,8 @@ import { useState } from "react";
 import {AiFillEyeInvisible, AiFillEye} from "react-icons/ai";
 import {Link} from "react-router-dom";
 import Auth from "../components/Auth";
-
+import {getAuth, createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
+import { db } from "../Firebase";
 
 
 
@@ -22,6 +23,27 @@ export default function SignUp() {
       [e.target.id]: e.target.value,
     }));
   }
+  async function onSubmit(e){
+    e.preventDefault()
+
+    try {
+      const auth = getAuth()
+      const userCredential = await
+      createUserWithEmailAndPassword(
+        auth, 
+        email, 
+        password);
+
+        updateProfile(auth.currentUser,[
+           name
+        ])
+      const user = userCredential.user
+      console.log(user);
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <section>
       <h1 className="text-3xl text-center mt-6 font-bold">
@@ -35,7 +57,7 @@ export default function SignUp() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] ml-20">
-          <form> 
+          <form onSubmit={onSubmit}> 
 
           <input  
             type="text" 

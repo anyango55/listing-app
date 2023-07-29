@@ -9,7 +9,7 @@ import Auth from "../components/Auth";
 
 
 export default function SignIn() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
   const [formData, setFormData] = useState({
     email:"",
     password:"",
@@ -46,7 +46,8 @@ export default function SignIn() {
             />
             <div className="relative mb-6">
             <input
-            type={showPassword ? "text" : "password"} 
+            // type={showPassword ? "text" : "password"} 
+            type={showPassword === true ? "text": "password"}
             id="password" 
             value={password} 
             onChange={onChange}
