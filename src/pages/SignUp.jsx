@@ -8,6 +8,7 @@ import {getAuth, createUserWithEmailAndPassword, updateProfile} from "firebase/a
 import { db } from "../Firebase";
 import {doc, serverTimestamp, setDoc} from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify";
 
 
 
@@ -52,10 +53,11 @@ export default function SignUp() {
       (); 
 
       await setDoc(doc(db, "users", user.uid),formDataCopy)
+      toast.error("Sign up was successful")
       navigate("/");
 
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong with the registration")
     }
   }
   return (
