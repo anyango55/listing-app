@@ -13,8 +13,6 @@ import {toast} from "react-toastify";
 
 
 
-
-
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
