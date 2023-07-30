@@ -6,6 +6,11 @@ import {Link} from "react-router-dom";
 import Auth from "../components/Auth";
 import {getAuth, createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import { db } from "../Firebase";
+import {doc, serverTimestamp, setDoc} from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 
 
@@ -17,6 +22,7 @@ export default function SignUp() {
     password:"",
   });
   const {name ,email, password} = formData;
+  const navigate = useNavigate()
   function onChange(e) {
     setFormData((prevState)=>({
       ...prevState,
@@ -24,7 +30,7 @@ export default function SignUp() {
     }));
   }
   async function onSubmit(e){
-    e.preventDefault()
+    e.preventDefault();
 
     try {
       const auth = getAuth()
@@ -35,14 +41,21 @@ export default function SignUp() {
         password);
 
         // version2
-        updateProfile(auth.currentUser,[
-           name
-        ])
-      const user = userCredential.user
-      console.log(user);
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        });
+    
+      const user = userCredential.user;
+      const formDataCopy = {...formData};
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp
+      (); 
+
+      await setDoc(doc(db, "users", user.uid),formDataCopy)
+      navigate("/");
 
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
   return (
