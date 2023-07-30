@@ -53,8 +53,8 @@ export default function SignUp() {
       (); 
 
       await setDoc(doc(db, "users", user.uid),formDataCopy)
-      toast.error("Sign up was successful")
-      navigate("/");
+      // toast.success("Sign up was successful")
+      // navigate("/");
 
     } catch (error) {
       toast.error("Something went wrong with the registration")
