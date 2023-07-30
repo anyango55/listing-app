@@ -34,6 +34,7 @@ export default function SignUp() {
         email, 
         password);
 
+        // version2
         updateProfile(auth.currentUser,[
            name
         ])
